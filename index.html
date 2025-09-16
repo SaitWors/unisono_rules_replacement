@@ -87,6 +87,32 @@
       h3 { font-size: 1rem; }
       nav { font-size: 0.9rem; }
     }
+    #imgOverlay {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      cursor: pointer;
+      z-index: 1000;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    #imgOverlay.visible {
+      visibility: visible;
+      opacity: 1;
+    }
+    #imgOverlay img {
+      max-width: 90%;
+      max-height: 90%;
+      box-shadow: 0 0 20px white;
+    }
+    .zoomable {
+      cursor: pointer;
+    }
+
   </style>
 </head>
 <body>
@@ -1897,7 +1923,7 @@
       <ul>
         <strong>Иерархия Фонда</strong><br>
         <br>
-        <img src="images/fond-logo.png" alt="Логотип Фонда" width="200" />
+        <img src="images/fond-logo.png" alt="Логотип Фонда" width="200" class="zoomable" style="cursor:pointer;" />
       </ul>
       <br>
       <b><span style="color: rgb(26, 188, 156)">Член совета О5</span></b><span style="color: rgb(26, 188, 156)"> (уровень допуска - 5)</span><br>
@@ -1952,9 +1978,9 @@
         <strong>Границы комплекса</strong><br>
         <br>
         <b>Ворота А:</b>
-        <img src="images/gate-A-range.jpg" alt="Гейт А" width="200" />
+        <img src="images/gate-A-range.png" alt="Радиус гейта А" width="200" class="zoomable" style="cursor:pointer;" />
         <b>Ворота B:</b>
-        <img src="images/gate-B-range.jpg" alt="Гейт Б" width="200" />
+        <img src="images/gate-B-range.png" alt="Радиус гейта Б" width="200" class="zoomable" style="cursor:pointer;" />
       </ul>
       <br>
       <b><span style="color: rgb(250, 197, 28)">Обслуживающий Персонал</span></b><br>
@@ -2247,7 +2273,7 @@
       <ul>
         <strong>Границы базы</strong><br>
         <br>
-        <img src="images/elk-base-range.jpg" alt="Логотип Фонда" width="200" />
+        <img src="images/elk-base-range.png" alt="Радиус базы ЭВС" width="200" class="zoomable" style="cursor:pointer;" />
       </ul>
       <br>
       <b><span style="color: rgb(26, 188, 156)">Бойцы ЭВС </span></b><span style="color: rgb(26, 188, 156)">(уровень допуска - 3/4)</span><br>
@@ -2363,7 +2389,7 @@
       <ul>
         <strong>Иерархия СОП</strong><br>
         <br>
-        <img src="images/sop-ierarch.jpg" alt="Иерархия СОП" width="200" />
+        <img src="images/sop-ierarch.png" alt="Иерархия СОП" width="200" class="zoomable" style="cursor:pointer;" />
       </ul>
       <ul>
         <strong>Подробнее о вступлении в СОП</strong><br>
@@ -2417,7 +2443,7 @@
       <ul>
         <strong>Границы базы</strong><br>
         <br>
-        <img src="images/sop-range-base.jpg" alt="Логотип Фонда" width="200" />
+        <img src="images/sop-range-base.png" alt="Радиус базы СОП" width="200" class="zoomable" style="cursor:pointer;" />
       </ul>
       <br>
       <b><span style="color: rgb(26, 188, 156)">Предводитель СОП</span></b><br>
@@ -2458,7 +2484,7 @@
       <ul>
         <strong>Иерархия Длань-Змеи</strong><br>
         <br>
-        <img src="images/dz-ierarch.jpg" alt="Иерархия ДЗ" width="200" />
+        <img src="images/dz-ierarch.png" alt="Иерархия ДЗ" width="200" class="zoomable" style="cursor:pointer;" />
       </ul>
       <ul>
         <strong>Подробнее о вступлении в ДЗ</strong><br>
@@ -2509,7 +2535,7 @@
       <ul>
         <strong></strong><br>
         <br>
-        <img src="images/dz-base-range.jpg" alt="Границы базы ДЗ" width="200" />
+        <img src="images/dz-base-range.png" alt="Радиус базы ДЗ" width="200" class="zoomable" style="cursor:pointer;" />
       </ul>
       <br>
       <b><span style="color: rgb(26, 188, 156)">Представитель Длань-Змеи</span></b><br>
@@ -2878,7 +2904,35 @@
       <br>
       2. Люцифер Минтон - Моральная Поддержка<br>
       <br>
+      3. Robert Targaryan - Скинул скриншоты йоу/Тестер
+      <br>
     </p>
   </div>
+
+
+<div id="imgOverlay">
+  <img id="imgLarge" src="" alt="Увеличенное изображение" />
+</div>
+<script>
+  const zoomableImages = document.querySelectorAll('.zoomable');
+  const overlay = document.getElementById('imgOverlay');
+  const imgLarge = document.getElementById('imgLarge');
+
+  zoomableImages.forEach(img => {
+    img.addEventListener('click', () => {
+      imgLarge.src = img.src;
+      overlay.classList.add('visible');
+    });
+  });
+
+  overlay.addEventListener('click', () => {
+    overlay.classList.remove('visible');
+    imgLarge.src = '';
+  });
+</script>
+
+
+
+
 </body>
 </html>
