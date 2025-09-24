@@ -7,6 +7,37 @@
   <title>Правила сервера Unisono</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    .section-buttons {
+      position: fixed;
+      top: 4rem;
+      right: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 1100;
+    }
+    .section-buttons button{
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      background: #39548b;
+      color: #fff;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .section-buttons button:hover,
+    .section-buttons button:focus {
+      background: #2e4aa0;
+      transform: translateY(-2px);
+    }
+
+    .section-buttons button.active {
+      background: #1f325a;
+    }
+
     body.dark {
     background: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
     color: #ddd;
@@ -160,6 +191,25 @@
 </head>
 <body>
 <button id="themeToggle">🌙 Тёмная тема</button>
+<div id="sectionButtons" class="section-buttons">
+  <button data-target="terms">1</button>
+  <button data-target="chat">2</button>
+  <button data-target="general">3</button>
+  <button data-target="samples">4</button>
+  <button data-target="rp">5</button>
+  <button data-target="specific-rp">6</button>
+  <button data-target="rebellions">7</button>
+  <button data-target="diplomacy">8</button>
+  <button data-target="complex">9</button>
+  <button data-target="fond">10</button>
+  <button data-target="area">10.1</button>
+  <button data-target="elk">10.2</button>
+  <button data-target="opn">10.3</button>
+  <button data-target="resistance">11</button>
+  <button data-target="snake">12</button>
+  <button data-target="professions">13</button>
+  <button data-target="editors">14</button>
+</div>
 <div class="container">
   <h1>Правила сервера Unisono <br> (Актуально на момент 24.09.2025) </h1>
   <nav>
@@ -2996,6 +3046,19 @@
       btn.textContent = "🌙 Тёмная тема";
     }
   });
+
+document.querySelectorAll('.section-buttons button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const targetId = btn.getAttribute('data-target');
+    const target = document.getElementById(targetId);
+    if (target) {
+      target.scrollIntoView({behavior: 'smooth', block: 'start'});
+      document.querySelectorAll('.section-buttons button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      history.replaceState(null, '', '#' + targetId);
+    }
+  });
+});
 </script>
 
 
